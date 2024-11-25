@@ -1,32 +1,22 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class Racquet_controller : MonoBehaviour
 {
-    
-    [SerializeField] const float Max_X = 4f;
-    [SerializeField] const float Min_X = -4f;
-    [SerializeField] float speed = 4.2f;
+    const float Max_X = 3.2f;
+    const float Min_X = -3.2f; 
+    [SerializeField] float speed = 4.2f; 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (gameObject.CompareTag("racquet")){
-            if(Input.GetKey("left") || Input.GetKey("a") && transform.position.x > Min_X){
-                transform.Translate(Vector3.left * speed* Time.deltaTime);
-            }
+        float positionX = transform.position.x; // Posición actual en el eje X
 
-            if(Input.GetKey("right") || Input.GetKey("d")  && transform.position.x < Max_X){
-            transform.Translate(Vector3.right * speed* Time.deltaTime);
-            }
-
+        if ((Input.GetKey("left") || Input.GetKey("a")) && positionX > Min_X)
+        {
+            transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
         }
-
-   
+        else if ((Input.GetKey("right") || Input.GetKey("d")) && positionX < Max_X)
+        {
+            transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
+        }
     }
 }
