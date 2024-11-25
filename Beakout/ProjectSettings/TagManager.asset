@@ -8,6 +8,7 @@ TagManager:
   - wall-bottom
   - wall-top
   - wall-lateral
+  - brick-y
   layers:
   - Default
   - TransparentFX
