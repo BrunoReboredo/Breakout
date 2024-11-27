@@ -7,6 +7,7 @@ public class Ball_controller : MonoBehaviour
     Rigidbody2D rb ;
     float force = 4f;
     float delay = 1f;
+    [SerializeField] Game_controller game;
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
         {"brick-y", 10},
@@ -48,7 +49,9 @@ public class Ball_controller : MonoBehaviour
 
     private void OnCollisionEnter2D (Collision2D other){
         string tag = other.gameObject.tag;
+        //acutalizar puntuacion y destruir los ladrillos una vez golpeados
         if (bricks.ContainsKey(tag)){
+            game.UpdateScore(bricks[tag]);
             Destroy(other.gameObject);
         }
         if (tag == "racquet"){
