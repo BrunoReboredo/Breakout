@@ -12,6 +12,9 @@ public class Ball_controller : MonoBehaviour
     [SerializeField] Game_controller game;
 
     [SerializeField] AudioClip sfxRacquet;
+    [SerializeField] AudioClip sfxWall;
+    [SerializeField] AudioClip sfxBrick;
+    [SerializeField] AudioClip sfxLifeLost;
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
         {"brick-y", 10},
@@ -49,12 +52,16 @@ public class Ball_controller : MonoBehaviour
 
         //lanzar la pelota
         rb.AddForce(dir * force, ForceMode2D.Impulse);
+
     }
 
     private void OnCollisionEnter2D (Collision2D other){
         string tag = other.gameObject.tag;
-        //acutalizar puntuacion y destruir los ladrillos una vez golpeados
+
+        //acutalizar puntuacion y destruir los ladrillos una vez golpeados. Este if sirve para cuando se golpea a los ladrillos con la pelota
         if (bricks.ContainsKey(tag)){
+            sfx.clip = sfxRacquet;
+            sfx.Play();
             game.UpdateScore(bricks[tag]);
             Destroy(other.gameObject);
         }
@@ -76,11 +83,18 @@ public class Ball_controller : MonoBehaviour
             }            
         }
 
+        if (tag == "wall-lateral" || tag == "wall-top"){
+            sfx.clip = sfxWall;
+            sfx.Play();
+        }
+
     }
 
 //metodo que vuelve a lanzar la pelota si sale por abajo de los limites
     void OnTriggerEnter2D (Collider2D other){
         if (other.tag == "wall-bottom"){
+            sfx.clip = sfxLifeLost;
+            sfx.Play();
             Invoke("LaunchBall", delay);
             game.UpadateLifes(-1);
         }
