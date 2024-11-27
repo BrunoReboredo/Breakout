@@ -7,7 +7,11 @@ public class Ball_controller : MonoBehaviour
     Rigidbody2D rb ;
     float force = 4f;
     float delay = 1f;
+
+    AudioSource sfx;
     [SerializeField] Game_controller game;
+
+    [SerializeField] AudioClip sfxRacquet;
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
         {"brick-y", 10},
@@ -20,7 +24,7 @@ public class Ball_controller : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        sfx = GetComponent<AudioSource>();
         Invoke("LaunchBall", delay);
        // Invoke("OnCollision2D", 0f);
     }
@@ -56,6 +60,10 @@ public class Ball_controller : MonoBehaviour
         }
 
         if (tag == "racquet"){
+
+            //implementar sonido cada vez q la pelota golpee la pala
+            sfx.clip = sfxRacquet;
+            sfx.Play();
             //obtener la posicion de la pala
             Vector3 racquet = other.gameObject.transform.position;
 
