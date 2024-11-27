@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Ball_controller : MonoBehaviour
 {
@@ -52,6 +53,14 @@ public class Ball_controller : MonoBehaviour
         }
         if (tag == "racquet"){
 
+        }
+
+    }
+
+//metodo que vuelve a lanzar la pelota si sale por abajo de los limites
+    void OnTriggerEnter2D (Collider2D other){
+        if (other.tag == "wall-bottom"){
+            Invoke("LaunchBall", delay);
         }
     }
 }
