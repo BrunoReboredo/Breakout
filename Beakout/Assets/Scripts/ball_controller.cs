@@ -52,7 +52,16 @@ public class Ball_controller : MonoBehaviour
             Destroy(other.gameObject);
         }
         if (tag == "racquet"){
+            //obtener la posicion de la pala
+            Vector3 racquet = other.gameObject.transform.position;
 
+            //punto de contacto entre la pala y la pelota
+            Vector2 contact = other.GetContact(0).point;
+
+            // if para detectar si el punto de colision de la pelota esta mas a la izquierda o derecha, y devolver la pelota en la direccion en la que vino, sentido opuesto
+            if(rb.linearVelocity.x < 0 && contact.x > racquet.x || rb.linearVelocity.x > 0 && contact.x < racquet.x){
+                rb.linearVelocity = new Vector2 (-rb.linearVelocity.x, rb.linearVelocity.y);
+            }            
         }
 
     }
