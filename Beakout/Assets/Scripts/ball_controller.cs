@@ -1,16 +1,26 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class ball_controller : MonoBehaviour
+public class Ball_controller : MonoBehaviour
 {
     Rigidbody2D rb ;
     float force = 4f;
     float delay = 1f;
+
+    Dictionary<string, int> bricks = new Dictionary<string, int>{
+        {"brick-y", 10},
+        {"brick-g", 15},
+        {"brick-a", 20},
+        {"brick-r", 25}
+    };
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
         Invoke("LaunchBall", delay);
+       // Invoke("OnCollision2D", 0f);
     }
 
     // Update is called once per frame
@@ -33,5 +43,15 @@ public class ball_controller : MonoBehaviour
 
         //lanzar la pelota
         rb.AddForce(dir * force, ForceMode2D.Impulse);
+    }
+
+    private void OnCollisionEnter2D (Collision2D other){
+        string tag = other.gameObject.tag;
+        if (bricks.ContainsKey(tag)){
+            Destroy(other.gameObject);
+        }
+        if (tag == "racquet"){
+
+        }
     }
 }

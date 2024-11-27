@@ -9,6 +9,9 @@ TagManager:
   - wall-top
   - wall-lateral
   - brick-y
+  - brick-r
+  - brick-g
+  - brick-a
   layers:
   - Default
   - TransparentFX
