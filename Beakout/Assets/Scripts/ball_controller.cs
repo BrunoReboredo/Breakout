@@ -54,6 +54,7 @@ public class Ball_controller : MonoBehaviour
             game.UpdateScore(bricks[tag]);
             Destroy(other.gameObject);
         }
+
         if (tag == "racquet"){
             //obtener la posicion de la pala
             Vector3 racquet = other.gameObject.transform.position;
@@ -73,6 +74,7 @@ public class Ball_controller : MonoBehaviour
     void OnTriggerEnter2D (Collider2D other){
         if (other.tag == "wall-bottom"){
             Invoke("LaunchBall", delay);
+            game.UpadateLifes(-1);
         }
     }
 }
