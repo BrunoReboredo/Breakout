@@ -9,6 +9,9 @@ public class Ball_controller : MonoBehaviour
     float delay = 1f;
 
     AudioSource sfx;
+    int hitCount = 0;
+
+    [SerializeField] float forceInc;
     [SerializeField] Game_controller game;
 
     [SerializeField] AudioClip sfxRacquet;
@@ -80,7 +83,14 @@ public class Ball_controller : MonoBehaviour
             // if para detectar si el punto de colision de la pelota esta mas a la izquierda o derecha, y devolver la pelota en la direccion en la que vino, sentido opuesto
             if(rb.linearVelocity.x < 0 && contact.x > racquet.x || rb.linearVelocity.x > 0 && contact.x < racquet.x){
                 rb.linearVelocity = new Vector2 (-rb.linearVelocity.x, rb.linearVelocity.y);
-            }            
+            } 
+
+            //incrementar la velocidad cada multiplo de 4
+            hitCount ++;
+            if (hitCount % 4 == 0){
+                Debug.Log("aumento de velocidad");
+                rb.AddForce(rb.linearVelocity.normalized * forceInc, ForceMode2D.Impulse);
+            }           
         }
 
         if (tag == "wall-lateral" || tag == "wall-top"){
