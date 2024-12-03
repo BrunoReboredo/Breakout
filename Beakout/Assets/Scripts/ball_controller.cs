@@ -11,6 +11,8 @@ public class Ball_controller : MonoBehaviour
     AudioSource sfx;
     int hitCount = 0;
 
+    bool halved;
+
     [SerializeField] float forceInc;
     [SerializeField] Game_controller game;
 
@@ -18,6 +20,9 @@ public class Ball_controller : MonoBehaviour
     [SerializeField] AudioClip sfxWall;
     [SerializeField] AudioClip sfxBrick;
     [SerializeField] AudioClip sfxLifeLost;
+    [SerializeField] Transform racquet;
+
+
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
         {"brick-y", 10},
@@ -107,6 +112,7 @@ public class Ball_controller : MonoBehaviour
             sfx.Play();
             Invoke("LaunchBall", delay);
             game.UpadateLifes(-1);
+            hitCount = 0;
         }
     }
 }
