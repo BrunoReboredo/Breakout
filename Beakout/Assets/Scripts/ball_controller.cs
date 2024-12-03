@@ -93,9 +93,14 @@ public class Ball_controller : MonoBehaviour
             //incrementar la velocidad cada multiplo de 4
             hitCount ++;
             if (hitCount % 4 == 0){
-                Debug.Log("aumento de velocidad");
+                //Debug.Log("aumento de velocidad");
                 rb.AddForce(rb.linearVelocity.normalized * forceInc, ForceMode2D.Impulse);
             }           
+        }
+
+        //reducir a la mitad el tamaño de la pala si golpeael limite superior
+        if(tag == "wall-top" && !halved){
+            HalveRacquet(true);
         }
 
         if (tag == "wall-lateral" || tag == "wall-top"){
@@ -112,7 +117,23 @@ public class Ball_controller : MonoBehaviour
             sfx.Play();
             Invoke("LaunchBall", delay);
             game.UpadateLifes(-1);
+            //restaurar el numero de golpes a 0
             hitCount = 0;
+            //restaurar el tamaño de la pala
+            if(halved){
+                HalveRacquet(false);
+            }
+           
         }
     }
+
+    void HalveRacquet (bool halve){
+        halved = halve;
+        Vector3 scale = racquet.transform.localScale;
+        racquet.transform.localScale = halved ?
+            new Vector3(scale.x , scale.y * 0.5f, scale.z):
+            new Vector3(scale.x , scale.y * 2f, scale.z);
+    }
+
+
 }
