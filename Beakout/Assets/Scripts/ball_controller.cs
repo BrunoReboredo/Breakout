@@ -22,6 +22,8 @@ public class Ball_controller : MonoBehaviour
     [SerializeField] AudioClip sfxLifeLost;
     [SerializeField] Transform racquet;
 
+    [SerializeField] Racquet_controller racquetScale;
+
 
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
@@ -36,8 +38,13 @@ public class Ball_controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sfx = GetComponent<AudioSource>();
-        Invoke("LaunchBall", delay);
-       // Invoke("OnCollision2D", 0f);
+        //Invoke("LaunchBall", delay);
+        // Escuchar el evento de la raqueta
+        racquetScale.OnScaleComplete += () =>
+        {
+            Debug.Log("paso por aqui");
+            Invoke("LaunchBall", delay);
+        };
     }
 
     // Update is called once per frame
