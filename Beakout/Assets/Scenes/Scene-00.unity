@@ -1328,6 +1328,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &638775055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 638775057}
+  - component: {fileID: 638775056}
+  m_Layer: 0
+  m_Name: StartGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &638775056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638775055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808daa93ff4e2ba4d8d18132a9c26267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &638775057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638775055}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.910693, y: 2.6398158, z: 0.7608605}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &646041680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3554,7 +3598,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -335, y: -299}
+  m_AnchoredPosition: {x: -362.1, y: -299}
   m_SizeDelta: {x: 160, y: 29.771}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1955715661
@@ -3579,7 +3623,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 16d31117053fe1143ba3c2cbed76c46e, type: 3}
-    m_FontSize: 25
+    m_FontSize: 23
     m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 0
@@ -3590,7 +3634,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 0
-  m_Text: PRESS KEY TO START
+  m_Text: PRESS ANY KEY TO START
 --- !u!222 &1955715662
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4013,3 +4057,4 @@ SceneRoots:
   - {fileID: 1885040660}
   - {fileID: 1792565126}
   - {fileID: 1656346206}
+  - {fileID: 638775057}
