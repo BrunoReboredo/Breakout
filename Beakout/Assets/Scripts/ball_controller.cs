@@ -22,9 +22,6 @@ public class Ball_controller : MonoBehaviour
     [SerializeField] AudioClip sfxLifeLost;
     [SerializeField] Transform racquet;
 
-    [SerializeField] Racquet_controller racquetScale;
-
-
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
         {"brick-y", 10},
@@ -38,13 +35,7 @@ public class Ball_controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sfx = GetComponent<AudioSource>();
-        //Invoke("LaunchBall", delay);
-        // Escuchar el evento de la raqueta
-        racquetScale.OnScaleComplete += () =>
-        {
-            Debug.Log("paso por aqui");
-            Invoke("LaunchBall", delay);
-        };
+        Invoke("LaunchBall", delay);
     }
 
     // Update is called once per frame
@@ -105,7 +96,7 @@ public class Ball_controller : MonoBehaviour
             }           
         }
 
-        //reducir a la mitad el tamaño de la pala si golpeael limite superior
+        //reducir a la mitad el tamaño de la pala si golpea el limite superior
         if(tag == "wall-top" && !halved){
             HalveRacquet(true);
         }
