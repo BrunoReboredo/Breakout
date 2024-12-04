@@ -24,10 +24,15 @@ public class Ball_controller : MonoBehaviour
 
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
-        {"brick-y", 10},
-        {"brick-g", 15},
-        {"brick-a", 20},
-        {"brick-r", 25}
+
+        {"brick-v", 1},
+        {"brick-p", 5},
+        {"brick-o", 10},
+        {"brick-y", 15},
+        {"brick-g", 20},
+        {"brick-a", 25},
+        {"brick-r", 30}
+        
     };
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -101,7 +106,7 @@ public class Ball_controller : MonoBehaviour
             HalveRacquet(true);
         }
 
-        if (tag == "wall-lateral" || tag == "wall-top"){
+        if (tag == "wall-lateral" || tag == "wall-top" || tag == "brick-gr"){
             sfx.clip = sfxWall;
             sfx.Play();
         }
