@@ -1,26 +1,26 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Game_controller : MonoBehaviour
 {
-    int score = 0;
-    int lifes = 3;
 
-    [SerializeField] Text txtScore;
-    [SerializeField] Text txtLifes;
+    //Lo qyue va entre llaves permite la lectura de las variables, pero no su modifcacion (permite el get pero no el set)
+    public static int score {get; private set; } = 0;
+    public static int lifes{get; private set; } = 3;
+
+    public static List<int> totalBricks = new List<int> {0, 32, 46};
 
 
-    public void UpdateScore (int points) {
+
+    public static void UpdateScore (int points) {
         score += points;
     }
 
-    public void UpadateLifes (int numLifes){
+    public static void UpadateLifes (int numLifes){
         lifes += numLifes;
     }
 
-    void OnGUI(){
-        txtScore.text = string.Format("{0, 3:D3}",score);
-        txtLifes.text = lifes.ToString();
-    }
+
 }

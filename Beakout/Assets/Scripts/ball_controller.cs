@@ -1,21 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class Ball_controller : MonoBehaviour
 {
     Rigidbody2D rb ;
     float force = 4f;
     float delay = 1f;
-
     AudioSource sfx;
     int hitCount = 0;
-
+    int destroyedBricks = 0;
+    int sceneId;
     bool halved;
-
     [SerializeField] float forceInc;
-    [SerializeField] Game_controller game;
-
     [SerializeField] AudioClip sfxRacquet;
     [SerializeField] AudioClip sfxWall;
     [SerializeField] AudioClip sfxBrick;
@@ -24,7 +21,6 @@ public class Ball_controller : MonoBehaviour
 
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
-
         {"brick-v", 1},
         {"brick-p", 5},
         {"brick-o", 10},
@@ -32,7 +28,6 @@ public class Ball_controller : MonoBehaviour
         {"brick-g", 20},
         {"brick-a", 25},
         {"brick-r", 30}
-        
     };
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,12 +36,8 @@ public class Ball_controller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sfx = GetComponent<AudioSource>();
         Invoke("LaunchBall", delay);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //cargar en la variable la id de la escena activa en la que se encuentra el juego
+        sceneId = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void LaunchBall (){
@@ -73,8 +64,14 @@ public class Ball_controller : MonoBehaviour
         if (bricks.ContainsKey(tag)){
             sfx.clip = sfxRacquet;
             sfx.Play();
-            game.UpdateScore(bricks[tag]);
+            Game_controller.UpdateScore(bricks[tag]);
             Destroy(other.gameObject);
+
+            //se suma el contador de bricks rotos, al llegar al limite de la lista totalbricks, se pasa de nivel
+            destroyedBricks ++;
+            if(destroyedBricks == Game_controller.totalBricks[sceneId]){
+                SceneManager.LoadScene(sceneId +1);
+            }
         }
 
         if (tag == "racquet"){
@@ -119,7 +116,8 @@ public class Ball_controller : MonoBehaviour
             sfx.clip = sfxLifeLost;
             sfx.Play();
             Invoke("LaunchBall", delay);
-            game.UpadateLifes(-1);
+            
+            Game_controller.UpadateLifes(-1);
             //restaurar el numero de golpes a 0
             hitCount = 0;
             //restaurar el tamaño de la pala
