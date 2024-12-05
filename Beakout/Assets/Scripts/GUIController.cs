@@ -10,5 +10,7 @@ public class GUIController : MonoBehaviour
     void OnGUI(){
         txtScore.text = string.Format("{0, 3:D3}",Game_controller.score);
         txtLifes.text = Game_controller.lifes.ToString();
+
+        
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class Ball_controller : MonoBehaviour
 {
     Rigidbody2D rb ;
-    float force = 4f;
+    float force = 5f;
     float delay = 1f;
     AudioSource sfx;
     int hitCount = 0;
@@ -19,15 +19,17 @@ public class Ball_controller : MonoBehaviour
     [SerializeField] AudioClip sfxLifeLost;
     [SerializeField] Transform racquet;
 
+    [SerializeField] AudioClip sfxLevelPass;
+
 
     Dictionary<string, int> bricks = new Dictionary<string, int>{
         {"brick-v", 1},
         {"brick-p", 5},
-        {"brick-o", 10},
-        {"brick-y", 15},
-        {"brick-g", 20},
-        {"brick-a", 25},
-        {"brick-r", 30}
+        {"brick-o", 7},
+        {"brick-y", 10},
+        {"brick-g", 15},
+        {"brick-a", 18},
+        {"brick-r", 20}
     };
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -70,7 +72,13 @@ public class Ball_controller : MonoBehaviour
             //se suma el contador de bricks rotos, al llegar al limite de la lista totalbricks, se pasa de nivel
             destroyedBricks ++;
             if(destroyedBricks == Game_controller.totalBricks[sceneId]){
-                SceneManager.LoadScene(sceneId +1);
+                sfx.clip = sfxLevelPass;
+                sfx.Play();
+                //una vez rotos todos los ladrillos, la pelota se queda a zero e invisible de velocidad para evitar bugs
+                rb.linearVelocity = Vector2.zero;
+                GetComponent<SpriteRenderer>().enabled = false;
+                //invocar la siguiente escena con un delay de 3 segundos
+                Invoke("ChangeScene", 3);
             }
         }
 
@@ -110,7 +118,29 @@ public class Ball_controller : MonoBehaviour
 
     }
 
-//metodo que vuelve a lanzar la pelota si sale por abajo de los limites
+    //metodo para cargar la siguiente escena una vez completada la actual
+void ChangeScene()
+{
+    // Si las vidas llegan a 0, se carga la escena de Game Over
+    if (Game_controller.lifes <= 0)
+    {
+        Game_controller.ResetGame();
+        return;
+    }
+
+    // Si hay un nivel siguiente
+    if (sceneId + 1 < Game_controller.totalBricks.Count - 1)
+    {
+        SceneManager.LoadScene(sceneId + 1); // Avanza al siguiente nivel
+    }
+    else
+    {
+        // Si es el último nivel, carga la escena final
+        SceneManager.LoadScene(4);
+    }
+}
+
+    //metodo que vuelve a lanzar la pelota si sale por abajo de los limites
     void OnTriggerEnter2D (Collider2D other){
         if (other.tag == "wall-bottom"){
             sfx.clip = sfxLifeLost;
@@ -135,6 +165,4 @@ public class Ball_controller : MonoBehaviour
             new Vector3(scale.x , scale.y * 0.5f, scale.z):
             new Vector3(scale.x , scale.y * 2f, scale.z);
     }
-
-
 }

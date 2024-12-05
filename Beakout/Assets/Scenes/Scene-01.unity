@@ -1723,7 +1723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &835617413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2091,6 +2091,7 @@ MonoBehaviour:
   sfxBrick: {fileID: 8300000, guid: 7cc26b224f6a2b34ab767f18ab792c64, type: 3}
   sfxLifeLost: {fileID: 8300000, guid: 795f1585e2133b945903e0e08ec8bfad, type: 3}
   racquet: {fileID: 65566212}
+  sfxLevelPass: {fileID: 8300000, guid: ef3f4343f00ee3b4b8564d380acb512f, type: 3}
 --- !u!82 &940850235
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2989,8 +2990,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e02e97c7c37e345ace909cdc88f007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtScore: {fileID: 1471275596}
-  txtLifes: {fileID: 2021173226}
 --- !u!4 &1512798835
 Transform:
   m_ObjectHideFlags: 0
